@@ -1,0 +1,45 @@
+#!/usr/bin/env bash
+
+DOTFILES=$(cd $(dirname "${BASH_SOURCE[0]}") && pwd)
+
+nvim_init_setup(){
+    # required
+    mv $HOME/.config/nvim $HOME/.config/nvim.bak
+
+    # optional but recommended
+    mv $HOME/.local/share/nvim $HOME/.local/share/nvim.bak
+    mv $HOME/.local/state/nvim $HOME/.local/state/nvim.bak
+    mv $HOME/.cache/nvim $HOME/.cache/nvim.bak
+
+}
+
+nvim_setup(){
+    ln -s $DOTFILES/nvim $HOME/.config/nvim
+}
+
+zellij_setup(){
+    mv $HOME/.config/zellij $HOME/.config/zellij.bak
+    ln -s $DOTFILES/zellij $HOME/.config/zellij
+}
+
+kitty_setup(){
+    mv $HOME/.config/kitty $HOME/.config/kitty.bak
+    ln -s $DOTFILES/kitty $HOME/.config/kitty
+}
+
+tmux_setup(){
+    mv $HOME/.config/tmux $HOME/.config/tmux.bak
+    ln -s $DOTFILES/tmux $HOME/.config/tmux
+}
+
+# Terminal
+kitty_setup
+
+# Neovim
+nvim_init_setup
+nvim_setup
+
+# Terminal workspace
+# zellij_setup
+tmux_setup
+
